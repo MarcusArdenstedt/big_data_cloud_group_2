@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 from datetime import datetime
  
-
+db_path = str(Path(__file__).parents[1] /"data_warehouse/job_ads.duckdb")
 
 def _get_ads(url, params, headers):
     response = requests.get(url, params=params, headers=headers)
@@ -33,7 +33,7 @@ def jobsearch_resource():
 def run_pipeline(table_name):
     pipeline = dlt.pipeline(
         pipeline_name="job_ads_stream_daily",
-        destination="snowflake",
+        destination=dlt.destinations.duckdb(db_path),
         dataset_name="staging",
     )
         
