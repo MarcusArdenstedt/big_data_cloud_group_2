@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools >=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "big_data_cloud_group_2"
+version = "2025.10.15"
+dependencies = [
+"dlt",
+"dbt-core",
+"dagster",
+"pandas",
+"plotly"]
+
+requires-python = ">=3.8"
+authors = [{name = "Marcus,John,Efrem,Hazan"}] 
+
+description = "Group Project"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["frontend*", "backend*", "run_dashboard*"]
