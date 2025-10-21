@@ -1,12 +1,15 @@
 sources:
   - name: job_ads
-    database: job_db
+    database: job_ads
     schema: staging
     tables:
       - name: stg_snapshot_job_ads
         identifier: arbetsformedling_ads
       - name: stg_stream_job_ads
         identifier: daily_arbetsformedling_ads
+        meta: # This metadata specifies the corresponding Dagster asset for this dbt source.
+          dagster:
+            asset_key: ['stg_stream_main']
       - name: stg_job_ads_must_have_skills
         identifier: arbetsformedling_ads__must_have__skills
       - name: stg_job_ads_must_have_work_exp
@@ -15,7 +18,16 @@ sources:
         identifier: arbetsformedling_ads__must_have__education_level
       - name: stg_job_ads_must_have_skills_stream
         identifier: daily_arbetsformedling_ads__must_have__skills
+        meta: # This metadata specifies the corresponding Dagster asset for this dbt source.
+          dagster:
+            asset_key: ['stg_stream_must_have_skills']
       - name: stg_job_ads_must_have_work_exp_stream
         identifier: DAILY_ARBETSFORMEDLING_ADS__MUST_HAVE__WORK_EXPERIENCES
+        meta: # This metadata specifies the corresponding Dagster asset for this dbt source.
+          dagster:
+            asset_key: ['stg_stream_work_exp']
       - name: stg_job_ads_must_have_education_level_stream
         identifier: daily_arbetsformedling_ads__must_have__education_level
+        meta: # This metadata specifies the corresponding Dagster asset for this dbt source.
+          dagster:
+            asset_key: ['stg_stream_edu_level']
