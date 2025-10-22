@@ -8,7 +8,8 @@ import os
 
 
 
-db_path = str(Path(__file__).parents[1] / "data_warehouse/job_ads.duckdb")
+# db_path = str(Path(__file__).parents[1] / "data_warehouse/job_ads.duckdb")
+db_path = os.getenv("DUCKDB_PATH")
 
 def _get_ads(url):
     response = requests.get(url)

@@ -1,0 +1,7 @@
+
+big_data_cloud_group_2:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH') }}" 

@@ -1,0 +1,12 @@
+FROM python:3.11
+
+#ENV DBT_PROFILES_DIR=/pipeline \
+#    DUCKDB_PATH=/data_warehouse/job_ads.duckdb
+
+WORKDIR /pipeline/dlt_code
+
+COPY dlt_code/ /pipeline/dlt_code/
+
+RUN pip install dlt duckdb
+
+CMD ["python", "dlt_bulk_all_ads.py", "-h", "0.0.0.0", "-p", "3000"]

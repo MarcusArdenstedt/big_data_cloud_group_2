@@ -273,6 +273,8 @@ terraform.rc
 # Uncomment the line below if you want to ignore planout files.
 # planout
 
-dbt_profiles.yml
+profiles.yml
 
-container_instance.txt
+
+azure_pipeline_cli.txt
+azure_bulk_cli.txt
