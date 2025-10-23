@@ -22,7 +22,7 @@ resource "azurerm_storage_share" "ass" {
 }
 
 resource "azurerm_storage_share_file" "asf" {
-  name             = "dbt_profiles.yml"
+  name             = "profiles.yml"
   storage_share_id = azurerm_storage_share.ass.url
-  source           = "dbt_profiles.yml"
+  source           = "profiles.yml"
 }
