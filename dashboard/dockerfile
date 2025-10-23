@@ -1,13 +1,15 @@
 FROM python:3.11-slim
 
-ENV DUCKDB_PATH=/data_warehouse/job_ads.duckdb
+ENV DUCKDB_PATH=/mnt/data/job_ads.duckdb
 
 WORKDIR /app/dashboard
 
-COPY dashboard/ /app/dashboard/
+COPY / /app/dashboard/
 
 RUN pip install streamlit duckdb pandas plotly 
 
 RUN pip install -e .
+
+EXPOSE 8501
 
 CMD ["streamlit", "run", "run_dashboard/Startsida.py", "--server.port=8501", "--server.address=0.0.0.0"]
