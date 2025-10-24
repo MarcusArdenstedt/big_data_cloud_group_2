@@ -1,4 +1,4 @@
-#usuccessful creation for container group in Azure
+# #usuccessful creation for container group in Azure
 
 # resource "azurerm_container_group" "acg" {
 #   name                = "acg${random_string.suffix.result}"
