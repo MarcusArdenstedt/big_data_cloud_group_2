@@ -4,7 +4,7 @@ ENV DUCKDB_PATH=/mnt/data/job_ads.duckdb
 
 WORKDIR /app/dashboard
 
-COPY / /app/dashboard/
+COPY /dashboard/ /app/dashboard/
 
 RUN pip install streamlit duckdb pandas plotly 
 

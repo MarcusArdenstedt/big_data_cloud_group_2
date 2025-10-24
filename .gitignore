@@ -223,6 +223,7 @@ HR_agency.egg-info
 target/
 dbt_packages/
 logs/
+
  
 # dagster
 **/.tmp*/
