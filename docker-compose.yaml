@@ -11,7 +11,7 @@ services:
       dockerfile: dockerfile.bulk
     ports:
       - "3000:3000"
-    image: crgh5mqk.azurecr.io/bulk_pipeline:latest
+    image: cr4yoakl.azurecr.io/bulk_pipeline:latest
 
 
   pipeline:
@@ -21,15 +21,13 @@ services:
       dockerfile: dockerfile.dwh
     ports:
       - "3000:3000"
-    image: crgh5mqk.azurecr.io/pipeline:latest
+    image: cr4yoakl.azurecr.io/pipeline:latest
 
   dashboard:
     platform: linux/amd64 # mac m chip specific
     build:
       context: .
       dockerfile: dockerfile.dashboard
-    # volumes:
-    #   #read-only bind mount
-    #   - ./data_warehouse:/data_warehouse:ro
     ports:
       - "8501:8501"
+    image: cr4yoakl.azurecr.io/dashboard:latest
