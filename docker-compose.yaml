@@ -11,7 +11,7 @@ services:
       dockerfile: dockerfile.bulk
     ports:
       - "3000:3000"
-    image: cr4yoakl.azurecr.io/bulk_pipeline:latest
+    image: ${ACR_NAME}.azurecr.io/bulk_pipeline:latest
 
 
   pipeline:
@@ -21,7 +21,7 @@ services:
       dockerfile: dockerfile.dwh
     ports:
       - "3000:3000"
-    image: cr4yoakl.azurecr.io/pipeline:latest
+    image: ${ACR_NAME}.azurecr.io/pipeline:latest
 
   dashboard:
     platform: linux/amd64 # mac m chip specific
@@ -30,4 +30,4 @@ services:
       dockerfile: dockerfile.dashboard
     ports:
       - "8501:8501"
-    image: cr4yoakl.azurecr.io/dashboard:latest
+    image: ${ACR_NAME}.azurecr.io/dashboard:latest

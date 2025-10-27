@@ -6,3 +6,7 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
   admin_enabled       = true
 }
+
+output "container_registry_name" {
+  value = azurerm_container_registry.acr.name
+}
