@@ -7,12 +7,7 @@ resource "azurerm_storage_account" "asa" {
   account_replication_type = "LRS"
 }
 
-# #storgae container - skipping this as it does not seem to be needed for us
-# resource "azurerm_storage_container" "sc" {
-#   name                  = "sc${random_string.suffix.result}"
-#   storage_account_id    = azurerm_storage_account.asa.id
-#   container_access_type = "private"
-# }
+
 
 #create file share
 resource "azurerm_storage_share" "ass" {
