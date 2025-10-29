@@ -12,11 +12,8 @@ import dagster as dg
 from dagster_dlt import DagsterDltResource, dlt_assets
 from dagster_dbt import DbtCliResource, DbtProject, dbt_assets
 import os 
+from dlt_code.dlt_daily_update import job_ad_source
 
-# to import dlt script
-import sys
-sys.path.insert(0, '../dlt_code')
-from dlt_daily_update import job_ad_source
 
 # data warehouse directory
 db_path = os.getenv("DUCKDB_PATH")

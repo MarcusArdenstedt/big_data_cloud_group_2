@@ -6,7 +6,6 @@ from frontend.pie_chart import must_have_skills
 from frontend.map import choroplth_map
 
 
-
 def layout():
 
     #page df
@@ -39,7 +38,7 @@ def layout():
         st.metric(label= "% ej specificerad region", value=count_procent(data= df))
         
     
-    fig = choroplth_map(df= df, occupation= "Säkerhet och bevakning")
+    fig = choroplth_map(df= df)
     st.plotly_chart(fig)
 
     #skill graph

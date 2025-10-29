@@ -17,8 +17,8 @@ def layout():
         #### 1. Antal Lediga Jobb efter Område
         Detta stapeldiagram visar yrkesområden med flest lediga jobb. Det hjälper dig att snabbt se var efterfrågan är som störst.
 
-        #### 2. Antal Annonser per Region
-        En interaktiv karta över Sverige visualierar antalet jobbannonser per region.
+        #### 2. Antal Tjänster per Region
+        En interaktiv karta över Sverige visualierar antalet jobbtjänster per region.
 
         #### 3. Mest Efterfrågade Färdigheter
         Denna lista visar de fem mest frekventa färdigheterna som nämns i företagens jobbannonser.

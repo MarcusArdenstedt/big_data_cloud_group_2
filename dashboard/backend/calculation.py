@@ -1,7 +1,6 @@
 from datetime import timedelta
 from difflib import get_close_matches
-from backend.data_processing import read_json_data
-from backend.data_filter import region_code, region_vacancies
+
 
 def days_ago(date):
   return date - timedelta(7)
@@ -21,26 +20,24 @@ def num_of_ads_7_days(df):
 
 # ----------------------------#
 
-
-def get_matches(occupation):
+# use get close matches with values that are name for region in workplace region with name that are key i länskod.
+def get_matches(region_code, region_vacancies):
     
-    df_occupation = region_code(geojson= read_json_data())
-    
+    länskod = region_code
+        
     # get all region in a list
-    regions = region_vacancies(occupation= occupation)["workplace_region"].values
+    regions = region_vacancies["workplace_region"].values
     
     region_code_map = []
     for region in regions:
 
-        name_macthes = get_close_matches(region, df_occupation.keys(), n= 1)[0]
-        code = df_occupation[name_macthes]
+        name_macthes = get_close_matches(region, länskod.keys(), n= 1)[0]
+        code = länskod[name_macthes]
         region_code_map.append(code)
         
     return region_code_map
 
-
 def count_vacancies(data, type = None):
-
 
         if type == 'ej specificerad':
             return data[data["workplace_region"] == 'ej specificerad']["number_of_vacancies"].sum()
