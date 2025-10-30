@@ -36,7 +36,7 @@ def layout():
         
     with col_3:
         st.metric(label= "% ej specificerad region", value=count_procent(data= df))
-    fig = choroplth_map(df= df, occupation= "Data/IT")
+    fig = choroplth_map(df= df)
     st.plotly_chart(fig)
 
     #skill graph

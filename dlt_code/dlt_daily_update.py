@@ -1,12 +1,8 @@
 import dlt
 import requests
 import json
-from pathlib import Path
-import os
 from datetime import datetime
  
-db_path = str(Path(__file__).parents[1] /"data_warehouse/job_ads.duckdb")
-
 def _get_ads(url, params, headers):
     response = requests.get(url, params=params, headers=headers)
     response.raise_for_status()  # check for http errors
@@ -33,25 +29,3 @@ def jobsearch_resource():
 @dlt.source
 def job_ad_source():
     return jobsearch_resource()
-
-
-
-
-# def run_pipeline(table_name):
-#     pipeline = dlt.pipeline(
-#         pipeline_name="job_ads_stream_daily",
-#         destination=dlt.destinations.duckdb(db_path),
-#         dataset_name="staging",
-#     )
-        
-#     load_info = pipeline.run(jobsearch_resource(), table_name=table_name)
-#     print(load_info)
-
-
-# if __name__ == "__main__":
-#     working_directory = Path(__file__).parent
-#     os.chdir(working_directory)
-
-#     table_name = "daily_arbetsformedling_ads"
-
-#     run_pipeline(table_name=table_name)
