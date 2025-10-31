@@ -17,12 +17,11 @@ This project focuses on a cloud deployment of a ETL pipeline to Azure using Terr
 
 To keep this service always available to users and update the data warehouse once per day, the Azure resources mentioned below is needed. Read the table to better understand the cost drivers. Below the table, a pricing example is found.
 
-| Azure Resource            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Primary Cost Model               | Fixed Cost Components (Charged 24/7)                                                         | Running Cost Components                                                                                                                       |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| App Service Plan          | We have selected the lowest pricing tier in a Linux based plan, Basic B1. Each tier comes with a fixed amount of allocated vCPU, RAM, and Storage. We pay for this allocation 24/7, even if the web app is stopped or idle. We have not enabled scaling and only have one running instances.                                                                                                                                                                                                                                              | Fixed (Reserved Compute)         | Basic tier with 1 instance                                                                   |                                                                                                                                               |
-| Container Registry        | Stores, manages, and distributes container images (the static blueprint). Price per day based on service tier, which is the fixed base cost and includes a set amount of storage.                                                                                                                                                                                                                                                                                                                                                         | Fixed (Tier-Based)               | Daily Fee for the selected tier (Basic in our case) which includes a base amount of storage. | Only if limits are exceeded                                                                                                                   |
-| Storage Account           | Azure File Shares. The storage account bills only for what we store, measured in GiB per month and what we do with it (transactions). Also depends on the redundancy of choice, copies and geographic spread. We have the cheapest LRS and no geographical spread, nor backups. Transactions (Operations) - The cost for every read, write, delete, or list operation (API call) you perform on the files in your share. As we are charged per a block of operations (e.g., per 10,000 transactions), we will not exceed to lowest limit. | Running (Consumption based)      |                                                                                              | Storage Capacity (price per GiB per month) based on the redundancy option LRS and access tier Cool. Transactions (cost per 10,000 operations) |
-| Container Instances (ACI) | We pay for the resources allocated to the container group for the duration it is running, billed down to the second. Primary pricing components is vCPU Duration: The amount of virtual CPU cores requested for the container group, charged per second and Memory (GiB) Duration: The amount of memory (in gigabytes) requested for the container group, charged per second.                                                                                                                                                             | Consumption (Serverless Compute) |                                                                                              | vCPU and Memory Duration (Charged per second from deployment until stop/                                                                      | deletion). |
+| Azure Resource | Description | Primary Cost Model | Fixed Cost Components (Charged 24/7) | Running Cost Components |
+| ----- | ----- | ----- | ----- | ----- |
+| App Service Plan | We have selected the lowest pricing tier in a Linux based plan, Basic B1. Each tier comes with a fixed amount of allocated vCPU, RAM, and Storage. We pay for this allocation 24/7, even if the web app is stopped or idle. We have not enabled scaling and only have one running instances. | Fixed (Reserved Compute) | Basic tier with 1 instance | | | Container Registry | Stores, manages, and distributes container images (the static blueprint). Price per day based on service tier, which is the fixed base cost and includes a set amount of storage. | Fixed (Tier-Based) | Daily Fee for the selected tier (Basic in our case) which includes a base amount of storage. | Only if limits are exceeded |
+| Storage Account | Azure File Shares. The storage account bills only for what we store, measured in GiB per month and what we do with it (transactions). Also depends on the redundancy of choice, copies and geographic spread. We have the cheapest LRS and no geographical spread, nor backups. Transactions (Operations) - The cost for every read, write, delete, or list operation (API call) you perform on the files in your share. As we are charged per a block of operations (e.g., per 10,000 transactions), we will not exceed to lowest limit. | Running (Consumption based) | | Storage Capacity (price per GiB per month) based on the redundancy option LRS and access tier Cool. Transactions (cost per 10,000 operations) |
+| Container Instances (ACI) | We pay for the resources allocated to the container group for the duration it is running, billed down to the second. Primary pricing components is vCPU Duration: The amount of virtual CPU cores requested for the container group, charged per second and Memory (GiB) Duration: The amount of memory (in gigabytes) requested for the container group, charged per second. | Consumption (Serverless Compute) | | vCPU and Memory Duration (Charged per second from deployment until stop/deletion). |
 
 ## Cost estimation - cloud deployment
 
@@ -35,16 +34,16 @@ Focusing on Pay as you go pricing plan. Other billing models exist, like provisi
 
 ### Pricing example
 
-| Resource                        | Price                                                                                                                        | Cost per month                                        |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| Container instance #1: Pipeline | Memory 4GB<br>1 container group 0.0000014 per GB/s<br>14.72$/month.<br>Price per vCPU/s 0,0000129<br> (Usage 17% CPU/second) | 33,55$<br>14.72$                                      |
-| Container instance #2: Bulk     | Memory 4GB<br>1 container group 0.0000014 per GB/s<br>14.72$/month.<br>Price per vCPU/s 0,0000129                            | 33,55$ (Only first month)<br>14.72$(Only first month) |
-| Storage                         | Based on 1 GB Storage Used capacity<br> and data retrieval under 10,000 operations                                           | $0.26                                                 |
-| Storage container               | S4: 32 GiB, 500 Provisioned IOPS, 60 Provisioned MB/s, $1.536/month                                                          | $1.54                                                 |
-| Blob                            | Based on 1 GB Storage Used capacity<br> and data retrieval under 10,000 operations                                           | $0.12                                                 |
-| Web app                         | 1 core, 1.75 GB RAM, 10 GB Storage US$0.018, 1 instances                                                                     | US$13.14                                              |
-| Container registry              | Tier: Basic, 30 days × US$0.167 per registry per day                                                                         | US$5.00                                               |
-| **Total monthly cost**          |                                                                                                                              | **$68,33/month<br>$116,6 first month only**           |
+| Resource | Price | Cost per month | 
+| ----- | ----- | ----- |
+| Container instance #1: Pipeline | Memory 4GB<br>1 container group 0.0000014 per GB/s<br>14.72$/month.<br>Price per vCPU/s 0,0000129<br> (Usage 17% CPU/second) | 33,55$<br>14.72$ |
+| Container instance #2: Bulk | Memory 4GB<br>1 container group 0.0000014 per GB/s<br>14.72$/month.<br>Price per vCPU/s 0,0000129 | 33,55$ (Only first month)<br>14.72$(Only first month) |
+| Storage | Based on 1 GB Storage Used capacity<br> and data retrieval under 10,000 operations | $0.26 |
+| Storage container | S4: 32 GiB, 500 Provisioned IOPS, 60 Provisioned MB/s, $1.536/month | $1.54 |
+| Blob | Based on 1 GB Storage Used capacity<br> and data retrieval under 10,000 operations | $0.12 |
+| Web app | 1 core, 1.75 GB RAM, 10 GB Storage US$0.018, 1 instances | US$13.14 |
+| Container registry | Tier: Basic, 30 days × US$0.167 per registry per day | US$5.00 |
+| **Total monthly cost** | | **$68,33/month<br>$116,6 first month only** |
 
 ## If we go with Snowflake
 
@@ -69,9 +68,10 @@ Given our small data set, storage costs is expected to be less than $1 as Snofla
 - Snowflake support is superior to Azures
 - No lock in with one specific cloud provider
 - Built in support for Streamlit
-  **Cons**
-- Slightly more expensive
+
+**Cons**
 - Very scalable and harder to manage computation costs
+- Slightly less transparant pricing model upon signing up
 - Not as broad product offering as Azure
 
 ## Data transformations
